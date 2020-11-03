@@ -1,0 +1,15 @@
+<mat-list>
+  <div *ngFor="let lunch of list">
+  <mat-list-item>
+    <mat-label>Ort</mat-label>
+    {{lunch.location}}
+    <mat-list>
+      <div *ngFor="let meal of lunch.meals">
+        <mat-list-item>
+          {{meal}}
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </mat-list-item>
+  </div>
+</mat-list>

@@ -12,9 +12,7 @@ import { HomeComponent } from './home.component';
 
 import { LunchFormComponent } from '../../components/home/lunch-form/lunch-form.component';
 
-
-
-
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +30,9 @@ import { LunchFormComponent } from '../../components/home/lunch-form/lunch-form.
   exports: [
     HomeComponent,
     LunchFormComponent
+  ],
+  providers: [
+    LocalStorageService
   ]
 })
 export class HomeModule { }
