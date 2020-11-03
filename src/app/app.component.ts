@@ -1,4 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+
+import {AppUrlPaths} from './app.url-paths';
+
+import {LocalStorageService} from './services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +12,17 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit{
   public title = 'lunchTime';
-  public counter = '';
+  constructor(private router: Router,
+              private localStorageService: LocalStorageService) {
+  }
   public ngOnInit(): void{
-    if (!window.localStorage.getItem('counter')){
-      window.localStorage.setItem('counter', '0');
-    }
-    this.counter = window.localStorage.getItem('counter');
+  }
+
+  public navigateToForm(): void {
+    this.router.navigateByUrl(AppUrlPaths.Form);
+  }
+
+  public navigateToList(): void {
+    this.router.navigateByUrl(AppUrlPaths.List);
   }
 }

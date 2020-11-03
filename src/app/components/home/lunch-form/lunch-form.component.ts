@@ -1,5 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormArray, FormControl, FormGroup} from '@angular/forms';
+
+import { LunchModel } from '../../../models/lunch.model';
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-lunch-form',
@@ -7,8 +10,6 @@ import { FormArray, FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./lunch-form.component.css']
 })
 export class LunchFormComponent implements OnInit {
-  @Input() counter: string;
-
   private lunchForm: FormGroup = new FormGroup({
     location: new FormControl(''),
     meals: new FormArray([])
@@ -21,7 +22,8 @@ export class LunchFormComponent implements OnInit {
     return this.lunchForm.get('meals') as FormArray;
   }
 
-  constructor() { }
+  constructor(private localStorageService: LocalStorageService) {
+  }
 
   ngOnInit(): void {
     this.meals.push(new FormControl(''));
@@ -39,10 +41,8 @@ export class LunchFormComponent implements OnInit {
     this.meals.removeAt(i);
   }
 
-  public onSubmit(value: any): void{
+  public onSubmit(value: LunchModel): void{
     this.lunchForm.reset();
-    window.localStorage.setItem(`${this.counter}.Bestellung`, JSON.stringify(value));
-    this.counter = String(Number(this.counter) + 1);
-    window.localStorage.setItem('counter', `${this.counter}`);
+    this.localStorageService.addLunch(value);
   }
 }
