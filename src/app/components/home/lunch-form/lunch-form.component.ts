@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormArray, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormArray, FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./lunch-form.component.css']
 })
 export class LunchFormComponent implements OnInit {
+  @Input() counter: string;
 
   private lunchForm: FormGroup = new FormGroup({
     location: new FormControl(''),
@@ -39,6 +40,9 @@ export class LunchFormComponent implements OnInit {
   }
 
   public onSubmit(value: any): void{
-    console.log(value);
+    this.lunchForm.reset();
+    window.localStorage.setItem(`${this.counter}.Bestellung`, JSON.stringify(value));
+    this.counter = String(Number(this.counter) + 1);
+    window.localStorage.setItem('counter', `${this.counter}`);
   }
 }
